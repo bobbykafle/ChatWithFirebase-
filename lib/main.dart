@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       title: 'Cheat Chat',
       theme: ThemeData(
        useMaterial3: true,
-       textTheme: GoogleFonts.mochiyPopPOneTextTheme(),
+       textTheme: GoogleFonts.robotoTextTheme(),
       ),
       home: Login(),
     );
