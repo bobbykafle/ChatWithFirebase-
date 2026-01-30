@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "791994735454",
+    "project_id": "upload-16126",
+    "storage_bucket": "upload-16126.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:791994735454:android:f6ce50658c310fd9860dcf",
+        "android_client_info": {
+          "package_name": "com.example.uplaod_profile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiIhoL3NttjwYF5RGfMAJSGrQESS_X0KY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
