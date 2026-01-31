@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/route_manager.dart';
+import 'package:uplaod_profile/Authentication/getx.dart';
 import 'package:uplaod_profile/Components/button.dart';
 import 'package:uplaod_profile/Components/textfield.dart';
 import 'package:uplaod_profile/Screen/register.dart';
@@ -13,6 +18,8 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final TextEditingController emailController =TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  final AuthController authController = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,23 +66,29 @@ class _LoginState extends State<Login> {
                 ),
 
                 const SizedBox(height: 16),   
-
-              AppButton(
-                text: 'Login',
-                color: Colors.blue[100], 
+                  //Login Buttonn With GetX
+              Obx(() =>
+                AppButton(
+                  text: authController.isLoading.value? 'Loding...' : 'Login',
+                  color: Colors.blue[100], 
                 onPressed: (){
-                   Navigator.push(context,
-                   MaterialPageRoute(builder: (_)=>Register(),
-                   ),
-                   );
-                }),
+                  authController.login(
+                    email: emailController.text.trim(), 
+                    password: passwordController.text.trim(),
+                    );
+                },),
+              ),
+              //Error message
+               Obx(() =>authController.errorMessage.value.isEmpty?
+               const SizedBox.shrink(): Text(
+                  authController.errorMessage.value,
+                  style: const TextStyle(color: Colors.red, fontSize: 12),
+                )),
 
                   const SizedBox(height: 20.0),
                   GestureDetector(
                  onTap: () {
-                  Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => const Register()),
-                    );
+                    Get.to(()=> const Register()); //Navigate to Register wit Getx
                    },
                     child: const Text(
                             "Don't have an account? Register",
@@ -95,11 +108,13 @@ class _LoginState extends State<Login> {
                   Divider(),
                   const SizedBox(height: 16),
 
-                  //Icons 
+                  // Google and Facebook Icons 
                   AppButton(text: 'Login with Google', 
                   color: Colors.amber,
                   icon: Icons.g_mobiledata,
-                  onPressed: (){},
+                  onPressed: (){
+                      authController.loginWithGoogle();
+                  },
                   ),
 
                   const SizedBox(height: 14.0),
@@ -107,7 +122,9 @@ class _LoginState extends State<Login> {
                   AppButton(text: 'Login with Facebook', 
                   color: Colors.amber,
                   icon: Icons.facebook,
-                  onPressed:(){},
+                  onPressed:(){
+                    authController.loginWithFacebook();
+                  },
                   ),
             ],
           ),

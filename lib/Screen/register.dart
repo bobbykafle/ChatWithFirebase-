@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/route_manager.dart';
+import 'package:uplaod_profile/Authentication/getx.dart';
 import 'package:uplaod_profile/Components/button.dart';
 import 'package:uplaod_profile/Components/textfield.dart';
 import 'package:uplaod_profile/Screen/login.dart';
@@ -16,6 +21,8 @@ class _RegisterState extends State<Register> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController = TextEditingController();
+
+  final AuthController authController = Get.find<AuthController>();
 
   @override
   void dispose() {
@@ -56,6 +63,7 @@ class _RegisterState extends State<Register> {
                   backgroundColor: Colors.grey.shade300,
                   child: Icon(Icons.person, size: 50, color: Colors.grey.shade600),
                 ),
+                
                 const SizedBox(height: 20),
 
                 // First Name
@@ -99,19 +107,37 @@ class _RegisterState extends State<Register> {
                 ),
                 const SizedBox(height: 18),
 
-                // Register Button
-                AppButton(
-                  text: 'Register',
-                  color: Colors.blue[300],
-                  onPressed: () {},
+                // Register Button with GetX
+                Obx(()=> AppButton(
+                    text: authController.isLoading.value? 'Creating': 'Register',
+                    color: Colors.blue[300],
+                    onPressed: () {
+                      authController.register(
+                        firstName: firstNameController.text.trim(),
+                         lastName: lastNameController.text.trim(),
+                         email: emailController.text.trim(),
+                         password: passwordController.text.trim(),
+                         confirmPassword: confirmPasswordController.text.trim(),
+                    );
+                    },
+                  ),
                 ),
+                 // Error message
+                Obx(() => Text(
+                      authController.errorMessage.value,
+                      style:
+                          const TextStyle(color: Colors.red, fontSize: 12),
+                    )),
+
+
+
+
                 const SizedBox(height: 20.0),
                                                                                        
                                                                                        
                 GestureDetector(
                  onTap: () {
-                  Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => const Login()),
+                       Get.offAll(()=> Login()
                     );
                    },
                     child: const Text(
