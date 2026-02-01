@@ -15,9 +15,6 @@ A Flutter application demonstrating:
 - Display error messages and loading states
 - Fully reactive UI with **GetX**
 
-## Screenshots
-
-_Add screenshots of your app here_
 
 ## Installation
 
