@@ -1,13 +1,27 @@
-# uplaod_profile
+# Flutter Profile Auth App
 
-A new Flutter project.
+A Flutter application demonstrating:
 
-## Getting Started
+- Firebase Authentication (Email/Password, Google, Facebook)
+- Profile photo upload using **GetX**
+- Reactive state management with **Obx**
+- Clean and responsive UI
 
-This project is a starting point for a Flutter application.
+## Features
 
-A few resources to get you started if this is your first Flutter project:
+- Register with name, email, and password
+- Pick profile image from gallery
+- Login with Google or Facebook
+- Display error messages and loading states
+- Fully reactive UI with **GetX**
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Screenshots
 
+_Add screenshots of your app here_
+
+## Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/bobbykafle/flutter-profile-auth.git
