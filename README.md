@@ -16,9 +16,8 @@ A Flutter application demonstrating:
 - Fully reactive UI with **GetX**
 
 
-## Installation
+## Demo Video
 
-1. Clone the repository:
+https://github.com/user-attachments/assets/d6bbf969-d0af-4d8b-aad6-65b0ad47f83c
 
-```bash
-git clone https://github.com/bobbykafle/flutter-profile-auth.git
+
