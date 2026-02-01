@@ -2,12 +2,14 @@ import 'package:get/get.dart';
 import 'package:uplaod_profile/Authentication/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:uplaod_profile/Screen/home.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AuthController extends GetxController {
   final Auth _auth = Auth();
 
   //Reactive  Firebase user
   Rx<User?> user = Rx<User?>(null);
+  Rx<XFile?> pickedImage = Rx<XFile?>(null);
  RxBool isLoading = true.obs;
   var errorMessage = ''.obs;
 
@@ -15,6 +17,7 @@ class AuthController extends GetxController {
   void onInit(){
     super.onInit();
     user.bindStream(_auth.authStateChanges); //helps to bind Firebase auth stream to user
+    
 
     //Stop Loading once user value upadtes
     ever<User?>(user, (_) => isLoading.value = false);
@@ -134,4 +137,15 @@ class AuthController extends GetxController {
     await signOut();
     Get.offAllNamed('/login');
   }
+
+  // Upload profile
+  Future<void> pickProfileImage() async{
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source:ImageSource.gallery);
+    if(image != null){
+       pickedImage.value = image;
+
+    }
+  }
+  
 }

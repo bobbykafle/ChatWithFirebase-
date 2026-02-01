@@ -1,5 +1,5 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/route_manager.dart';
@@ -58,11 +58,24 @@ class _RegisterState extends State<Register> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 // Profile Picture placeholder
-                CircleAvatar(
-                  radius: 50,
-                  backgroundColor: Colors.grey.shade300,
-                  child: Icon(Icons.person, size: 50, color: Colors.grey.shade600),
-                ),
+                   Obx(() =>
+                      CircleAvatar(
+                      radius: 50,
+                      backgroundColor: Colors.grey.shade300,
+                      //Passing the img
+                      backgroundImage: authController.pickedImage.value !=null ?
+                      FileImage(File(authController.pickedImage.value!.path)) : null,
+                      child: authController.pickedImage.value == null?
+                       Icon(Icons.person, size: 50, color: Colors.grey.shade600) : null,
+                                       ),
+                   ),
+                  
+                     TextButton.icon(
+                    onPressed: () => authController.pickProfileImage(),
+                    icon: Icon(Icons.camera_alt),
+                    label: Text("Choose Photo"),
+                                     ),
+              
                 
                 const SizedBox(height: 20),
 

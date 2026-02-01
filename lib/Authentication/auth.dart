@@ -33,19 +33,43 @@ class Auth{
   }) async{
     
      try{
-     
+     UserCredential userCredential =
      await _firebaseAuth.createUserWithEmailAndPassword(
       email: email, 
       password: password,
      );
       
+      //set Name only no porfile 
+      await userCredential.user!.updateDisplayName(
+        "$firstName $lastName",
+      );
+      await userCredential.user!.reload();
+      return null; 
    
      }on FirebaseAuthException catch (e){
       return e.message ;
   }
-     return null;
+     
 
   }
+
+   //Change profile photo anytime
+   Future<void> updateProfilePhoto(String imageUrl) async{
+    final user = _firebaseAuth.currentUser;
+    if(user == null) return;
+    await user.updatePhotoURL(imageUrl);
+    await user.reload();
+   }
+
+   //udtatte both photot and name together
+   Future<void> updateProfile({String? name, String? photoUrl}) async{
+    final user = _firebaseAuth.currentUser;
+    if(user == null) return;
+    if(name != null) await user.updateDisplayName(name);
+    if(photoUrl != null) await user.updatePhotoURL(photoUrl);
+
+    await user.reload();
+   }
 
 
   // SignIn with Google
@@ -106,6 +130,8 @@ class Auth{
     }
   }
 }
+
+  
 
 
 //SIGNOUT
